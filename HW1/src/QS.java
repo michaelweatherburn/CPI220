@@ -92,12 +92,25 @@ public class QS<Item> implements Iterable<Item> {
      * To Do: pop item from queue "last" (enqueue end)
      *
      */
-     /* 
+     
     public Item pop() {
+    	if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+    	Item item = last.item;
+    	last = last.prev;
+    	n--;
+    	if(isEmpty()) {
+    		first = null;
+    		last = null;	
+    		
+    	}
+    	else {
+    		
+    		last.next= null;
+    		
+    	}
     	return item;
-    	
     }
-     */
+     
 
     /**
      * Removes and returns the item on this queue that was least recently added.
@@ -124,7 +137,21 @@ public class QS<Item> implements Iterable<Item> {
     
 	/* To Do: add this function */
     public void push(Item item) {
-        
+        if(isEmpty()) {
+        	Node <Item> nn = new Node<Item>();
+        	nn.item = item;
+        	first = nn;
+        	last = nn;
+        	n++;
+        }
+        else {
+        Node<Item> nn = new Node<Item>(); 
+        nn.item = item;
+        nn.next = first;
+        first.prev = nn;
+        first = nn;
+        n++;
+        }
     }
     
 
@@ -388,7 +415,7 @@ public class QS<Item> implements Iterable<Item> {
         for(int k = 1; k <= numberItems; k++)  {
         	// animate
         	qs.draw(qs.size()-1, shortPause, numberItems, colors, radius);
-        	//int value = qs.pop(); must fix pop mweath
+        	int value = qs.pop();// must fix pop mweath
             // draw w/o animate, pause briefly
             qs.draw(-1, longPause, numberItems, colors, radius);
          }
@@ -400,7 +427,31 @@ public class QS<Item> implements Iterable<Item> {
 		 */
         StdOut.println("\n\n TEST #3: enqueue then alternate between dequeue and pop");
         
+     // add integers 1, ..., numberItems to the QS using enqueue
+        for(int i=1; i<= numberItems; i++)  {
+        	qs.enqueue(i);
+        	// draw w/o animate, pause briefly
+        	qs.draw(-1, longPause, numberItems, colors, radius);
+        }  
         
+        // print the contents of the qs
+        StdOut.println("\n Enqueued items to QS");
+        StdOut.println(qs);
+        
+        //Now alternate between deque and pop
+        StdOut.println("\n Alternate between dequeue and pop");
+        for(int k = 1; k<= numberItems; k++) {
+        	if(k%2==0) {
+        		qs.draw(qs.size()-1, shortPause, numberItems, colors, radius);
+        		int value = qs.pop();
+        		qs.draw(-1, longPause, numberItems, colors, radius);
+        	}
+        	else {
+        		qs.draw(0, shortPause, numberItems, colors, radius);
+        		int value = qs.dequeue();
+        		qs.draw(-1, longPause, numberItems, colors, radius);
+        	}
+        }
         
         
         

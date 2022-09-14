@@ -101,12 +101,20 @@ public class QSgame {
 		        
 		// SET UP QS for the game. Load the "prize" circle and the others to left and right
         
-		// enqueue prize circle
-		// Enqueue value 0 to give it baseColor[0]
-		 
+		//1.  enqueue prize circle
+		QS <Integer> qs = new QS<Integer>();
 		
-		// enqueue and push the rest of the circles
-		// Set value to match baseColor[2] and baseColor[1]
+		
+		//2. Enqueue value 0 to give it baseColor[0]
+		qs.enqueue(0);
+		qs.draw(-1, longPause, 1, baseColors, radius);
+		
+		//3. enqueue and push the rest of the circles
+		//3. Set value to match baseColor[2] and baseColor[1]
+		/*method: create temp int = numCircles
+		 * 	    while temp > 0
+		 * 		*/
+		
 		 
 		
 		// (debug) print the contents of the qs
