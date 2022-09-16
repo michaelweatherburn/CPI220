@@ -38,6 +38,8 @@
 * 
 * This document was prepared by Dianne Hansford
 */
+import java.util.Random;
+
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
@@ -114,7 +116,18 @@ public class QSgame {
 		/*method: create temp int = numCircles
 		 * 	    while temp > 0
 		 * 		*/
+		qs.enqueue(2);
+		qs.enqueue(2);
+		qs.enqueue(2);
 		
+		qs.push(1);
+		qs.push(1);
+		qs.push(1);
+		
+		StdOut.println("\n Print qs using foreach");
+        for(Integer ival : qs)
+        	StdOut.print(" "+ ival + " ");
+            
 		 
 		
 		// (debug) print the contents of the qs
@@ -127,13 +140,56 @@ public class QSgame {
         // -----------------------------------------------------------------
         // READY FOR GAME
           
-        StdOut.println("Let's Play! You get " + maxRolls + " rolls");
+        StdOut.println("\n Let's Play! You get " + maxRolls + " rolls");
         
         // draw all  
          
         // initialize what you need here
+        //values to hold maxRoll, numberOfTimes each option appears i.e. 0 : num0, 1 : num1, etc.
+        //and value to keep track if game is won or lost
+        boolean win = false;
+        int num0 =0, num1=0, num2=0, num3=0, num4=0;
+        int maxR = maxRolls;
         
+        //test roll
+        Random rand = new Random();
+        int r = rand.nextInt(5);
         // Continue rolling until maximum number of rolls reached or a win occurs
+        /*
+         * 
+        1 enqueue
+*       2 dequeue
+*       3 push
+*       4 pop
+*       */
+        while(maxR>0) {
+        	for(Integer i : qs) {
+        		if(i==0) {
+		        			switch(r) {
+		        			case 0: maxR--;
+		        			case 1: qs.enqueue(2); num1++; maxR--; StdOut.println("\n oops you enqueued 2!"); StdOut.println(qs); 
+		        			case 2: qs.dequeue();  num2++;maxR--; StdOut.println("\n oops you dequeued 1!"); StdOut.println(qs);
+		        			case 3: qs.push(1);	num3++; maxR--;StdOut.println("\n oops you pushed 1!"); StdOut.println(qs);
+		        			case 4: qs.pop();	num4++;maxR--; StdOut.println("\n oops you popped 2!"); StdOut.println(qs);
+		        			//enqueue and pop on the right
+		        	        //dequeue and push on the left
+		        					}//closes switch
+        		
+        						}//closing if statement
+        
+        		
+        						
+        	
+        		}//closes for loop
+        	
+    			win=true;
+    			
+    			StdOut.println("\n You won! \n These are your stats:");
+    			StdOut.println("\n Number Of times you enqueued: " + num1 + " Number Of times you dequeued: " + num2 + " Number of times you pushed: " + num3 + " Number of times you popped: "+num4);
+    			
+    			
+    			
+        	
 		// Keep statistics as the game continues
         
          
@@ -150,6 +206,15 @@ public class QSgame {
     	 
     	
     	
-	}
+        								}//closes while loop
 	
+        
+        
+        
+        
+        
+        
+        
+		}
+
 }
