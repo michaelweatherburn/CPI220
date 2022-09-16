@@ -139,8 +139,8 @@ public class QSgame {
         
         // -----------------------------------------------------------------
         // READY FOR GAME
-          
-        StdOut.println("\n Let's Play! You get " + maxRolls + " rolls");
+         int maxR = 28;
+        StdOut.println("\n Let's Play! You get " + maxR + " rolls");
         
         // draw all  
          
@@ -148,15 +148,16 @@ public class QSgame {
         //values to hold maxRoll, numberOfTimes each option appears i.e. 0 : num0, 1 : num1, etc.
         //and value to keep track if game is won or lost
         boolean win = false;
+        int checkZero = 1;
         int num0 =0, num1=0, num2=0, num3=0, num4=0;
-        int maxR = maxRolls;
+        //int maxR = maxRolls;
         
         //test roll
         Random rand = new Random();
         int r = rand.nextInt(5);
         // Continue rolling until maximum number of rolls reached or a win occurs
         /*
-         * 
+         *
         1 enqueue
 *       2 dequeue
 *       3 push
@@ -181,13 +182,25 @@ public class QSgame {
         						
         	
         		}//closes for loop
+        	for(Integer l: qs){// check list
+        		if(l==0) {
+        		checkZero = 0;
+        		}
+        	}
         	
-    			win=true;
-    			
-    			StdOut.println("\n You won! \n These are your stats:");
-    			StdOut.println("\n Number Of times you enqueued: " + num1 + " Number Of times you dequeued: " + num2 + " Number of times you pushed: " + num3 + " Number of times you popped: "+num4);
-    			
-    			
+        	
+        	
+        	
+        	if(checkZero!=0 && maxR>0) {
+        		win=true;
+        		    			
+        		    			StdOut.println("\n You won! \n These are your stats:");
+        		    			StdOut.println("\n Number Of times you enqueued: " + num1 + " Number Of times you dequeued: " + num2 + " Number of times you pushed: " + num3 + " Number of times you popped: "+num4);
+        		    			break;
+        		    			
+        		        	}
+        	
+        	else {maxR--;}
     			
         	
 		// Keep statistics as the game continues
@@ -209,7 +222,9 @@ public class QSgame {
         								}//closes while loop
 	
         
-        
+        if(maxR<0 && win==false) {
+        	StdOut.println("\n You lose");
+        }
         
         
         
