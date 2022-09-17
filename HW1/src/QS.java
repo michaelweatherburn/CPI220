@@ -2,6 +2,7 @@
 
 /**
  * QS.java
+ * This document was finished by Michael Weatherburn
  *
  * Class "QS" for QueueStack
  *  This code was developed from the Queue class from the algs4 library.
@@ -93,7 +94,8 @@ public class QS<Item> implements Iterable<Item> {
      *
      */
      
-    public Item pop() {
+    public Item pop() {//if list is empty, throw exception, else create item and store val from tail, then set tail as its prev node. Then decrement list size(n). 
+    				//Then check if the list is empty again. If it is, head and tail will point to null, else the next pointer of last will be null. After everything return the item
     	if (isEmpty()) throw new NoSuchElementException("Queue underflow");
     	Item item = last.item;
     	last = last.prev;
@@ -137,14 +139,14 @@ public class QS<Item> implements Iterable<Item> {
     
 	/* To Do: add this function */
     public void push(Item item) {
-        if(isEmpty()) {
+        if(isEmpty()) { //if list is empty, create new node with item, set head and tail to node then increase size of list
         	Node <Item> nn = new Node<Item>();
         	nn.item = item;
         	first = nn;
         	last = nn;
         	n++;
         }
-        else {
+        else { //if list isnt empty, create a new node with new item, set its next pointer to head, set heads previous pointer to new node, set head pointing to new node, then increase size of list
         Node<Item> nn = new Node<Item>(); 
         nn.item = item;
         nn.next = first;
@@ -441,7 +443,7 @@ public class QS<Item> implements Iterable<Item> {
         //Now alternate between deque and pop
         StdOut.println("\n Alternate between dequeue and pop");
         for(int k = 1; k<= numberItems; k++) {
-        	if(k%2==0) {
+        	if(k%2==0) {//alternate operations depending if iteration value is odd or even
         		qs.draw(qs.size()-1, shortPause, numberItems, colors, radius);
         		int value = qs.pop();
         		qs.draw(-1, longPause, numberItems, colors, radius);

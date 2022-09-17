@@ -37,6 +37,7 @@
 * Do you have a nifty idea to improve this game? Let me know!
 * 
 * This document was prepared by Dianne Hansford
+* This document was finished by Michael Weatherburn
 */
 import java.util.Random;
 
@@ -94,8 +95,8 @@ public class QSgame {
 		
 		// create variables for long pause and short pause for animation
 		// short for animation, long for just looking at it
-		int shortPause = 50;
-		int longPause = 100;
+		int shortPause = 100;
+		int longPause = 400;
 				
 		// Create an array to keep track of the number of times each die value appears (0,1,2,3,4)
 		// Initialize to zero.
@@ -109,7 +110,7 @@ public class QSgame {
 		
 		//2. Enqueue value 0 to give it baseColor[0]
 		qs.enqueue(0);
-		qs.draw(-1, longPause, 1, baseColors, radius);
+		qs.draw(-1, longPause, 3, baseColors, radius);
 		
 		//3. enqueue and push the rest of the circles
 		//3. Set value to match baseColor[2] and baseColor[1]
@@ -145,17 +146,17 @@ public class QSgame {
         // draw all  
          
         // initialize what you need here
-        //values to hold maxRoll, numberOfTimes each option appears i.e. 0 : num0, 1 : num1, etc.
+        //values to hold maxRoll, numberOfTimes each option appears i.e. num0 for player choosing option 0 and etc.
         //and value to keep track if game is won or lost
         boolean gameDone = false; //checks if game is done or not
         boolean win = false;//checks if won or not
-        int checkZero = 1;//if 1, means zero is not in list, if 0, it is in list
+        int checkZero = 1;//if 1, means zero is not in list, if 0, it means 0 is in list
         int num0 =0, num1=0, num2=0, num3=0, num4=0;
         //int maxR = maxRolls;
         
         //test roll
         Random rand = new Random();
-        int r = rand.nextInt(5); //random input for now
+        int r = rand.nextInt(5); //random input for now -- this random player chooses number 0-5 until the game is done
         // Continue rolling until maximum number of rolls reached or a win occurs
         /*
          *
@@ -165,7 +166,7 @@ public class QSgame {
 *       4 pop
 *       */
         while(gameDone==false) {
-        	if(maxR>0) 
+        	if(maxR>0) //if player has rolls
         	{
 	        		for(Integer l:qs) //checks if there is a 0 in list
 	        		{
@@ -184,28 +185,28 @@ public class QSgame {
         			switch(r) 
         				{
         			case 0: maxR--;
-        			case 1: qs.enqueue(2); num1++;  StdOut.println("\n oops you enqueued 2! \n maxR = " + maxR--); StdOut.println(qs); 
-        			case 2: int x = qs.dequeue();  num2++; StdOut.println("\n oops you dequeued " + x + "\n maxR = " + maxR--); StdOut.println(qs);
-        			case 3: qs.push(1);	num3++; StdOut.println("\n oops you pushed 1! \n maxR = " + maxR--); StdOut.println(qs);
-        			case 4: int v = qs.pop();	num4++; StdOut.println("\n oops you popped " + v + "\n maxR = "+maxR--); StdOut.println(qs);
+        			case 1: qs.enqueue(2); num1++; StdOut.println("\n oops you enqueued 2! \n maxR = " + maxR--); StdOut.println(qs); qs.draw(-1, longPause, 3, baseColors, radius);
+        			case 2: qs.draw(0, shortPause, 3, baseColors, radius);int x = qs.dequeue(); qs.draw(-1, longPause, 3, baseColors, radius);  num2++; StdOut.println("\n oops you dequeued " + x + "\n maxR = " + maxR--); StdOut.println(qs);
+        			case 3: qs.push(1);	num3++; StdOut.println("\n oops you pushed 1! \n maxR = " + maxR--); StdOut.println(qs);  qs.draw(-1, longPause, 3, baseColors, radius);
+        			case 4: qs.draw(qs.size()-1, shortPause, 3, baseColors, radius); int v = qs.pop(); qs.draw(-1, longPause, 3, baseColors, radius);	num4++; StdOut.println("\n oops you popped " + v + "\n maxR = "+maxR--); StdOut.println(qs);
         			//enqueue and pop on the right
         	        //dequeue and push on the left
         				}
         	}
-        	if(checkZero == 1 && maxR>0) {
+        	if(checkZero == 1 && maxR>0) { //if you still have rolls but the there are no zeros in list
         		gameDone = true;
         		win = true;
         		break;
         		
         	}
-        	if(checkZero == 0 && maxR<=0)
+        	if(checkZero == 0 && maxR<=0) //if you have no rolls and there is a zero in list
         	{
         		gameDone = true;
         		win = false;
         		break;
         	}
         	
-        	for(Integer ca : qs) {
+        	for(Integer ca : qs) { //check list after switch case so we dont continously run while loop
         		if(ca != 0) checkZero = 1;
         		else checkZero = 0;
         	}
@@ -244,7 +245,8 @@ public class QSgame {
         }
         else 
         {
-        	StdOut.println("You Lose");
+        	StdOut.println("You Lose \n Heres your stats: ");
+        	StdOut.println("\n Number Of times you enqueued: " + num1 + "\n Number Of times you dequeued: " + num2 + "\n Number of times you pushed: " + num3 + "\n Number of times you popped: "+num4);
         	
         }
 	}//closes main method
