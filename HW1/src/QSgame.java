@@ -140,7 +140,7 @@ public class QSgame {
         
         // -----------------------------------------------------------------
         // READY FOR GAME
-         int maxR = 28;
+         int maxR = maxRolls; //hard coded maxRolls = maxRollss from above
         StdOut.println("\n \n Let's Play! You get " + maxR + " rolls");
         
         // draw all  
@@ -151,12 +151,12 @@ public class QSgame {
         boolean gameDone = false; //checks if game is done or not
         boolean win = false;//checks if won or not
         int checkZero = 1;//if 1, means zero is not in list, if 0, it means 0 is in list
-        int num0 =0, num1=0, num2=0, num3=0, num4=0;
-        //int maxR = maxRolls;
+        float num0 =0, num1=0, num2=0, num3=0, num4=0;
+        int count = 0;//keeps track of how many rolls we make so we can do calculations with later
         
         //test roll
         Random rand = new Random();
-        int r = rand.nextInt(5); //random input for now -- this random player chooses number 0-5 until the game is done
+        int r = rand.nextInt(5); //hardcoded random player input for now -- this random player chooses number 0-5 until the game is done
         // Continue rolling until maximum number of rolls reached or a win occurs
         /*
          *
@@ -184,11 +184,11 @@ public class QSgame {
     		{
         			switch(r) 
         				{
-        			case 0: maxR--;
-        			case 1: qs.enqueue(2); num1++; StdOut.println("\n oops you enqueued 2! \n maxR = " + maxR--); StdOut.println(qs); qs.draw(-1, longPause, 3, baseColors, radius);
-        			case 2: qs.draw(0, shortPause, 3, baseColors, radius);int x = qs.dequeue(); qs.draw(-1, longPause, 3, baseColors, radius);  num2++; StdOut.println("\n oops you dequeued " + x + "\n maxR = " + maxR--); StdOut.println(qs);
-        			case 3: qs.push(1);	num3++; StdOut.println("\n oops you pushed 1! \n maxR = " + maxR--); StdOut.println(qs);  qs.draw(-1, longPause, 3, baseColors, radius);
-        			case 4: qs.draw(qs.size()-1, shortPause, 3, baseColors, radius); int v = qs.pop(); qs.draw(-1, longPause, 3, baseColors, radius);	num4++; StdOut.println("\n oops you popped " + v + "\n maxR = "+maxR--); StdOut.println(qs);
+        			case 0: count++; maxR--; StdOut.println("\n oops you wasted a turn! \n maxR = " + maxR--);
+        			case 1: count++; qs.enqueue(2); num1++; StdOut.println("\n oops you enqueued 2! \n maxR = " + maxR--); StdOut.println(qs); qs.draw(-1, longPause, 3, baseColors, radius);
+        			case 2: count++; qs.draw(0, shortPause, 3, baseColors, radius);int x = qs.dequeue(); qs.draw(-1, longPause, 3, baseColors, radius);  num2++; StdOut.println("\n oops you dequeued " + x + "\n maxR = " + maxR--); StdOut.println(qs);
+        			case 3: count++; qs.push(1);	num3++; StdOut.println("\n oops you pushed 1! \n maxR = " + maxR--); StdOut.println(qs);  qs.draw(-1, longPause, 3, baseColors, radius);
+        			case 4: count++; qs.draw(qs.size()-1, shortPause, 3, baseColors, radius); int v = qs.pop(); qs.draw(-1, longPause, 3, baseColors, radius);	num4++; StdOut.println("\n oops you popped " + v + "\n maxR = "+maxR--); StdOut.println(qs);
         			//enqueue and pop on the right
         	        //dequeue and push on the left
         				}
@@ -236,18 +236,50 @@ public class QSgame {
         								
         
         			}//closes while loop
+        float n0,n1,n2,n3,n4;
+        n0 = num0/(num0+num1+num2+num3+num4);
+        n1 = num1/(num0+num1+num2+num3+num4);
+        n2 = num2/(num0+num1+num2+num3+num4);
+        n3 = num3/(num0+num1+num2+num3+num4);
+        n4 = num4/(num0+num1+num2+num3+num4);
         if(win==true && gameDone == true) 
         {
         	StdOut.println("\n You won! \n These are your stats:");
         	
-			StdOut.println("\n Number Of times you enqueued: " + num1 + "\n Number Of times you dequeued: " + num2 + "\n Number of times you pushed: " + num3 + "\n Number of times you popped: "+num4);
-			
+        	StdOut.println("\n Number Of times you missed: \n " + num0 + "/" + count);
+        	StdOut.print(num0 + " \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num0/count)*100));
+			StdOut.println("\n Number Of times you enqueued: ");
+			StdOut.print(num1 + "/" + count +" \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num1/count)*100));
+			StdOut.println("\n Number Of times you dequeued: ");
+			StdOut.print(num2 + "/" + count + " \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num2/count)*100));
+			StdOut.println("\n Number of times you pushed: ");
+			StdOut.print(num3 + "/" + count +" \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num3/count)*100));
+			StdOut.println("\n Number of times you popped: ");
+			StdOut.print(num4 + "/" + count +" \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num4/count)*100));
         }
         else 
         {
-        	StdOut.println("You Lose \n Heres your stats: ");
-        	StdOut.println("\n Number Of times you enqueued: " + num1 + "\n Number Of times you dequeued: " + num2 + "\n Number of times you pushed: " + num3 + "\n Number of times you popped: "+num4);
-        	
+        	StdOut.println("\n You Lose! \n Here are your stats: ");
+        	StdOut.println("\n Number Of times you missed: ");
+        	StdOut.print(num0 + " \nPercentage: ");
+        	StdOut.println(String.format("%.2f%%%n",(num0/count)*100));
+        	StdOut.println("\n Number Of times you enqueued: ");
+        	StdOut.print(num1 + "/" + count +" \nPercentage: ");
+        	StdOut.println(String.format("%.2f%%%n",(num1/count)*100));
+			StdOut.println("\n Number Of times you dequeued: ");
+			StdOut.print(num2 + "/" + count + " \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num2/count)*100));
+			StdOut.println("\n Number of times you pushed: ");
+			StdOut.print(num3 + "/" + count +" \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num3/count)*100));
+			StdOut.println("\n Number of times you popped: ");
+			StdOut.print(num4 + "/" + count +" \nPercentage: ");
+			StdOut.println(String.format("%.2f%%%n",(num4/count)*100));
         }
 	}//closes main method
 
