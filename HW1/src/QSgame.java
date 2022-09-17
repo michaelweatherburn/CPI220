@@ -140,21 +140,22 @@ public class QSgame {
         // -----------------------------------------------------------------
         // READY FOR GAME
          int maxR = 28;
-        StdOut.println("\n Let's Play! You get " + maxR + " rolls");
+        StdOut.println("\n \n Let's Play! You get " + maxR + " rolls");
         
         // draw all  
          
         // initialize what you need here
         //values to hold maxRoll, numberOfTimes each option appears i.e. 0 : num0, 1 : num1, etc.
         //and value to keep track if game is won or lost
-        boolean win = false;
-        int checkZero = 1;
+        boolean gameDone = false; //checks if game is done or not
+        boolean win = false;//checks if won or not
+        int checkZero = 1;//if 1, means zero is not in list, if 0, it is in list
         int num0 =0, num1=0, num2=0, num3=0, num4=0;
         //int maxR = maxRolls;
         
         //test roll
         Random rand = new Random();
-        int r = rand.nextInt(5);
+        int r = rand.nextInt(5); //random input for now
         // Continue rolling until maximum number of rolls reached or a win occurs
         /*
          *
@@ -163,44 +164,56 @@ public class QSgame {
 *       3 push
 *       4 pop
 *       */
-        while(maxR>0) {
-        	for(Integer i : qs) {
-        		if(i==0) {
-		        			switch(r) {
-		        			case 0: maxR--;
-		        			case 1: qs.enqueue(2); num1++; maxR--; StdOut.println("\n oops you enqueued 2!"); StdOut.println(qs); 
-		        			case 2: qs.dequeue();  num2++;maxR--; StdOut.println("\n oops you dequeued 1!"); StdOut.println(qs);
-		        			case 3: qs.push(1);	num3++; maxR--;StdOut.println("\n oops you pushed 1!"); StdOut.println(qs);
-		        			case 4: qs.pop();	num4++;maxR--; StdOut.println("\n oops you popped 2!"); StdOut.println(qs);
-		        			//enqueue and pop on the right
-		        	        //dequeue and push on the left
-		        					}//closes switch
-        		
-        						}//closing if statement
-        
-        		
-        						
-        	
-        		}//closes for loop
-        	for(Integer l: qs){// check list
-        		if(l==0) {
-        		checkZero = 0;
-        		}
+        while(gameDone==false) {
+        	if(maxR>0) 
+        	{
+	        		for(Integer l:qs) //checks if there is a 0 in list
+	        		{
+	        			if(l==0)checkZero = 0;
+	        			
+	        			
+	        			
+	        			
+	        		}
+	        		
+	        
         	}
         	
+        	if(checkZero == 0) //after checking list, if 0 exists, run switch
+    		{
+        			switch(r) 
+        				{
+        			case 0: maxR--;
+        			case 1: qs.enqueue(2); num1++;  StdOut.println("\n oops you enqueued 2! \n maxR = " + maxR--); StdOut.println(qs); 
+        			case 2: int x = qs.dequeue();  num2++; StdOut.println("\n oops you dequeued " + x + "\n maxR = " + maxR--); StdOut.println(qs);
+        			case 3: qs.push(1);	num3++; StdOut.println("\n oops you pushed 1! \n maxR = " + maxR--); StdOut.println(qs);
+        			case 4: int v = qs.pop();	num4++; StdOut.println("\n oops you popped " + v + "\n maxR = "+maxR--); StdOut.println(qs);
+        			//enqueue and pop on the right
+        	        //dequeue and push on the left
+        				}
+        	}
+        	if(checkZero == 1 && maxR>0) {
+        		gameDone = true;
+        		win = true;
+        		break;
+        		
+        	}
+        	if(checkZero == 0 && maxR<=0)
+        	{
+        		gameDone = true;
+        		win = false;
+        		break;
+        	}
         	
+        	for(Integer ca : qs) {
+        		if(ca != 0) checkZero = 1;
+        		else checkZero = 0;
+        	}
         	
-        	
-        	if(checkZero!=0 && maxR>0) {
-        		win=true;
+        		
         		    			
-        		    			StdOut.println("\n You won! \n These are your stats:");
-        		    			StdOut.println("\n Number Of times you enqueued: " + num1 + " Number Of times you dequeued: " + num2 + " Number of times you pushed: " + num3 + " Number of times you popped: "+num4);
-        		    			break;
         		    			
-        		        	}
         	
-        	else {maxR--;}
     			
         	
 		// Keep statistics as the game continues
@@ -219,17 +232,21 @@ public class QSgame {
     	 
     	
     	
-        								}//closes while loop
-	
+        								
         
-        if(maxR<0 && win==false) {
-        	StdOut.println("\n You lose");
+        			}//closes while loop
+        if(win==true && gameDone == true) 
+        {
+        	StdOut.println("\n You won! \n These are your stats:");
+        	
+			StdOut.println("\n Number Of times you enqueued: " + num1 + "\n Number Of times you dequeued: " + num2 + "\n Number of times you pushed: " + num3 + "\n Number of times you popped: "+num4);
+			
         }
-        
-        
-        
-        
-        
-		}
+        else 
+        {
+        	StdOut.println("You Lose");
+        	
+        }
+	}//closes main method
 
 }
