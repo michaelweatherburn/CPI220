@@ -281,6 +281,6 @@ public class QSgame {
 			StdOut.print(num4 + "/" + count +" \nPercentage: ");
 			StdOut.println(String.format("%.2f%%%n",(num4/count)*100));
         }
-	}//closes main method
+        System.exit(0);}//closes main method
 
 }
