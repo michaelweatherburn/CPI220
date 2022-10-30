@@ -1,8 +1,4 @@
-/* Michael Weatherburn
- * Deque.java
- * This class implements a double-ended Queue or deque (pronounced "deck")
- *
- * 
+ /* 
  * API
    public class Deque<Item> implements Iterable<Item>{
    public Deque()                   									 // construct an empty deque
@@ -27,12 +23,7 @@
 
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Knuth;
-import edu.princeton.cs.algs4.Stopwatch;
-
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class Deque<Item> implements Iterable<Item>{
 
@@ -47,7 +38,7 @@ public class Deque<Item> implements Iterable<Item>{
 		}
 		
 		// Constructor 
-		public Deque() {
+		public Deque () {
 			head = null;
 			tail = null;
 			numItems = 0;
@@ -58,10 +49,6 @@ public class Deque<Item> implements Iterable<Item>{
 		public int size() { return numItems; }
 		
 		public boolean validItem(Item item) {return item != null; }
-		
-		public Deque<Item>.Node getHead() {
-			return head;
-		}
 		
 		public void pushTail(Item item) {
 			
@@ -204,7 +191,6 @@ public class Deque<Item> implements Iterable<Item>{
 			return(num);
 		}
 		
-		
 		/*
 		 * iterate from head to tail
 		 * @see java.lang.Iterable#iterator()
@@ -222,120 +208,167 @@ public class Deque<Item> implements Iterable<Item>{
 			}
 		}
 		
+
 		
 		/* ******************************************************************************************  */
 		/* 
-		 * ******************************************************************************************
-		 * 
-		 * 
 		 * main() for testing Deque
 		 */
 		public static void main(String[] args) {
-			//setting time for runs while n = sheets
-			//start stopwatch then get time right before dataprint method is called to get time it took to run program before it got to that function
-			double time = 0;
-			Stopwatch stopwatch = new Stopwatch();
 			
-			StdOut.println("Enter the number of integers you want to add to the deque: ");
-			Scanner sc = new Scanner(System.in);
-			int n = sc.nextInt() ;
-			
-			
-			// create Integer object array with  0, n-1
-			Integer[] sdata;
-			sdata = new Integer[n];
-			for(int i=0; i<n; i++)
-				sdata[i] = i;
-			// Shuffle objects in array using knuth class
-			Knuth.shuffle(sdata);
-			
-			// create deque
-			Deque<Integer> mydeque = new Deque<Integer>();
-			
-			//create array of deque by creating new array
-			//and insert of index of deque in new arr
-			int ni = mydeque.size();
-			int[] myArr;
-			myArr = new int[n];
-			
-			
-			// load deque by push to Head
-			for(int i=0; i<n; i++)
-			mydeque.pushHead(sdata[i]);
-			StdOut.println("  ");
-			
-			
-			StdOut.println("Input deque: Print head to tail ");
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("  ");
- 
-			
-			
-			StdOut.println("Push 0 to Tail and Print head to tail ");
-			mydeque.pushTail(sdata[0]);
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("  ");
-
+			 Deque<String> history1 = new Deque<String>();
+			 Deque<String> history2 = new Deque<String>();
+			 Deque<String> history3 = new Deque<String>();
+			 Deque<String> history4 = new Deque<String>();
+			 Deque<String> history5 = new Deque<String>();
 			 
-			mydeque.popHead(); 
-			StdOut.println("popHead test and Print head to tail ");
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("  ");
-
+			 /*
+			  * Check performance of constructor
+			  */
+			 StdOut.println("Hello Deque history1,  are you empty?  " + history1.isEmpty() + "           size=  " + history1.size());
+			 StdOut.println("Hello Deque history2,  are you empty?  " + history2.isEmpty() + "           size=  " + history2.size());
+			 StdOut.println("Hello Deque history3,  are you empty?  " + history3.isEmpty() + "           size=  " + history3.size());
+			 StdOut.println("Hello Deque history4,  are you empty?  " + history4.isEmpty() + "           size=  " + history4.size());
+			 StdOut.println("Hello Deque history5,  are you empty?  " + history5.isEmpty() + "           size=  " + history5.size());
+			 StdOut.println(" ");
 			 
-			
-			mydeque.popTail();
-			
-			StdOut.println("popTail test and Print head to tail ");
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("  ");
-
-			
-			 StdOut.println("The num of items in deque is: ");
-			 StdOut.println(mydeque.numItems);
+			 /*
+			  * Read an Input file with strings
+			  */
+			 //Can take file name as argument
+			 //StdOut.println("input file name = " + args[0]); 
+			 //In inputFile = new In(args[0]);		 
 			 
-			 StdOut.println("The num of items in array is: ");
-			 int[] newArr = new int[mydeque.size()];
-			 StdOut.println(newArr.length);
-			 StdOut.println("Conversion method prints: ");
-			// StdOut.println(mechSort.convert(mydeque));
+			 //Simplify grading by reading a fixed file
+			 In inputFile = new In("dequeTest.txt");
 			 
-			
-			 StdOut.println("print method from mech sort: ");
-			 mechSort.printDeque(mydeque);
-			
-			 StdOut.println("Shift head in deque");
-			 
-			 mechSort.shift(mydeque);
-			 StdOut.println("Then Print head to tail ");
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("  ");
-			 
-			 StdOut.println("Print Sorted Deque");
-			 mechSort.sort(mydeque);
-			 StdOut.print("Head= "); 
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("=Tail "); 
-			 StdOut.println("  ");
-			 
-			 /*StdOut.println("\nPrint head to tail again and see if sort works: ");
-			 for(Integer s : mydeque)
-				 StdOut.print(s + " ");
-			 StdOut.println("  ");*/
-			 
-			 //StdOut.println("Is deque sorted?: ");
-			 //StdOut.println(mechSort.isSorted(mydeque));
+			 /*
+			  * TEST 1:
+			  * Read,  push to Head, print from Head to Tail with foreach
+			  */
+			 	  
+			 while(!inputFile.isEmpty()) {
+				 String s = inputFile.readString(); 
+				 history1.pushHead(s);
+			 }
 			 
 			 StdOut.println(" ");
-			 time = stopwatch.elapsedTime();
-			 StdOut.println("Time analysis of algorithm");
-			 mechSortAnalysis.dataPrint(time, n);
-			 StdOut.println("\nGoodbye Deque");
+			 StdOut.println("TEST 1 ");
+			 StdOut.println("Deque  loaded by push to Head       empty = " + history1.isEmpty() + "       size=  " + history1.size()); 
+			 StdOut.println("Print head to tail ");
+			 for(String s : history1)
+				 StdOut.print(s + " ");
+			 StdOut.println("  ");
+			 
+			/*
+			 * TEST 2
+			 * RE-open file
+			 * Read,  pushed to Tail, print from Head to Tail with foreach
+			 */
+			
+			 inputFile = new In("dequeTest.txt");
+	  
+			 while(!inputFile.isEmpty()) {
+				 String s = inputFile.readString(); 
+				 history2.pushTail(s);
+			 }
+			 
+			 StdOut.println(" ");
+			 StdOut.println("TEST 2 ");
+			 StdOut.println("Deque  loaded loaded by push to Tail       empty = " + history2.isEmpty() + "       size=  " + history2.size()); 
+			 StdOut.println("Print head to tail ");
+			 for(String s : history2)
+				 StdOut.print(s + " ");
+			 StdOut.println("  ");
+			 
+			 /*
+				 * TEST 3
+				 * RE-open file
+				 * Read,  pushed to Head, pop all from Head, print from Head to Tail with foreach
+				 */
+				
+				 inputFile = new In("dequeTest.txt");
+		  
+				 while(!inputFile.isEmpty()) {
+					 String s = inputFile.readString(); 
+					 history3.pushHead(s);
+				 }
+				 while(history3.size() > 0)  {
+					 history3.popHead(); 
+				 }
+				 
+				 StdOut.println(" ");
+				 StdOut.println("TEST 3");
+				 StdOut.println("Deque  loaded by push from Head and pop all from Head       empty = " + history3.isEmpty() + "       size=  " + history3.size()); 
+				 StdOut.println("Print head to tail ");
+				 for(String s : history3)
+					 StdOut.print(s + " ");
+				 StdOut.println("  ");
+				 
+				 /*
+					 * TEST 4
+					 * RE-open file
+					 * Read,  pushed to Tail, pop all from Tail, print from Head to Tail with foreach
+					 */
+					
+					 inputFile = new In("dequeTest.txt");
+			  
+					 while(!inputFile.isEmpty()) {
+						 String s = inputFile.readString(); 
+						 history4.pushTail(s);
+					 }
+					 while(history4.size() > 0)  {
+						 history4.popTail(); 
+					 }
+					 
+					 StdOut.println(" ");
+					 StdOut.println("TEST 4");
+					 StdOut.println("Deque  loaded by push from Tail and pop all from Tail       empty = " + history4.isEmpty() + "       size=  " + history4.size()); 
+					 StdOut.println("Print Head to Tail ");
+					 for(String s : history4)
+						 StdOut.print(s + " ");
+					 StdOut.println("  ");
+					 
+					 /*
+					  * TEST 5:
+					  * Read,  push to Head and Tail (duplicating item), pop last item from head and tail, print from Head to Tail with foreach
+					  */
+					 inputFile = new In("dequeTest.txt");
+					 
+					 while(!inputFile.isEmpty()) {
+						 String s = inputFile.readString(); 
+						 history5.pushHead(s);
+						 history5.pushTail(s);
+					 }
+					 
+					 StdOut.println(" ");
+					 StdOut.println("TEST 5 ");
+					 StdOut.println("Deque  loaded by push to Head and Tail  (duplicate item)      empty = " + history5.isEmpty() + "       size=  " + history5.size()); 
+					 StdOut.println("Print head to tail ");
+					 for(String s : history5)
+						 StdOut.print(s + " ");
+					 StdOut.println("  ");
+					 
+					 String poppedHead  = history5.popHead();
+					 String poppedTail =     history5.popTail();
+					 StdOut.println("Popped one item from Head and Tail       empty = " + history5.isEmpty() + "       size=  " + history5.size()); 
+					 StdOut.println("Popped Tail string  " + poppedTail + "     Popped Head string " + poppedHead);
+					 
+					 // Test the validItem method
+					 history5.pushTail(null);
+					 StdOut.println("Pushed null item  now  size=  " + history5.size()); 
+			 
+					 /*
+					  * Test Peek by printing out the last two items in history5
+					  */
+					 StdOut.println("   " );
+					 StdOut.println("Test Peek for " );
+					 for(int i=0;  i<2; i++)
+						 StdOut.println("Peek    " + i +  "   " +history5.peek(i));
+						 
+			 
+			 StdOut.println(" ");
+			 StdOut.println("Goodbye Deque");
 	    } 
 }
+
