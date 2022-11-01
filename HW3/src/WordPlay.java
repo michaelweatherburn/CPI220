@@ -1,5 +1,5 @@
 /*
- * Student Name:
+ * Student Name: Michael Weatherburn
  *
  * WordPlay
  * 
@@ -61,6 +61,8 @@ public class WordPlay {
       
     	// create a symbol table with key as string and value as integer 
 		// (word, length)  "WF" ST
+    	
+    	//ST<String, Integer> WFST = new ST<String, Integer>();  mweath1
 		 
 		//#1
 		SequentialSearchST<String, Integer> WFssST = new SequentialSearchST<String, Integer>();
@@ -103,30 +105,59 @@ public class WordPlay {
         
         // number of words read from file
         //int your variable here 
-        // number of words >= minlen
+        int readFromFile = 0;
+        // number of unique words >= minlen
         //int your variable here 
+        int uniqueWords = 0;
         
-        StdOut.println("Create a ST of (key,value) = (word, frequency) where length >=  " + minlen);
+        StdOut.println("\nCreate a ST of (key,value) = (word, frequency) where length >=  " + minlen);
 		  
         StdOut.println("Set timer to measure time to build ST");
         
 	    // start timer to measure time to build (word, freq) ST
-	     	 
+	     	 double time;
+	     	 Stopwatch timer = new Stopwatch();
+	     	 time = timer.elapsedTime();
 	     	 
 	    // Build the WF ST (You will need a switch statement )
-	     	   
+	     	switch(activeST) {
+		    case 1: //ST Implementation: Sequential Search
+		    	    //Read string from file and update key and frequency in ST
+		    	StdOut.println("ST Implemenation: Sequential Search");
+		    		while(!inputFile.isEmpty()) { //While inputFile is not empty
+		    			String word = inputFile.readString();
+		    			if(word.length() < minlen) {continue;}
+		    			if(!WFssST.contains(word)) {WFssST.put(word, 1);}
+		    			else WFssST.put(word, WFssST.get(word) + 1);
+		    			uniqueWords++;
+		    		}//Print a String with max frequency
+		    		String max = "";
+		    		WFssST.put(max,0);
+		    		for (String word:WFssST.keys())
+		    			if(WFssST.get(word) > WFssST.get(max))
+		    				max = word;
+		    		StdOut.println("The max frequency of a word is: " + WFssST.get(max));
+		    		break;
+		    case 2: StdOut.println("ST Implemenation: Binary Search");
+					break;
+		    case 3: StdOut.println("ST Implemenation: BST");
+					break;
+		    case 4: StdOut.println("ST Implemenation: Red Black BST");
+					break;
+	    }   
 	        
 	    //stop timer  
-	        
+	     	time = timer.elapsedTime();
 	        
 	    // report information
 	        
 	     
-	        
+	        StdOut.println("\nTime elapsed: "+time);
+	        StdOut.println("Unique words greater than minlen: "+uniqueWords);
 	        // Report on (word, frequency) ST build
 			// create variables for this section and then uncomment
 			/*
-	        StdOut.println("Number of words read from file:  " + xxxxx);
+	        StdOut.println("Number of words read from file:  " + readFromFile);
 	        StdOut.println("Number of words in file >= " + minlen + " = " + xx);
 	         
 	        StdOut.printf("Percentage of words >= min length:  %3.1f",xx);
@@ -163,7 +194,7 @@ public class WordPlay {
 			 */
 	        /****************************** */
 				 
-	        StdOut.println("Create (Frequency, Word) ST ");
+	        //StdOut.println("Create (Frequency, Word) ST ");   REMEMBER TO UNCOMMENT
 	         
 	    	
 	    	// Build the FW ST

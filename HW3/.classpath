@@ -6,15 +6,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/anime/algs4/algs4.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/anime/algs4/stdlib.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/anime/algs4/algs4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/anime/algs4/drjava.jar"/>
+	<classpathentry kind="lib" path="C:/Users/anime/algs4/stdlib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
