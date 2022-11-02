@@ -31,6 +31,9 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
+
+import java.util.HashSet;
+
 import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.BinarySearchST;
 import edu.princeton.cs.algs4.SequentialSearchST;
@@ -105,10 +108,12 @@ public class WordPlay {
         
         // number of words read from file
         //int your variable here 
-        int readFromFile = 0;
+        double readFromFile = 0;
         // number of unique words >= minlen
         //int your variable here 
-        int uniqueWords = 0;
+        double uniqueWords = 0;
+        //Number of unique keys in ST
+        int keysetSize = 0;
         
         StdOut.println("\nCreate a ST of (key,value) = (word, frequency) where length >=  " + minlen);
 		  
@@ -123,9 +128,19 @@ public class WordPlay {
 	     	switch(activeST) {
 		    case 1: //ST Implementation: Sequential Search
 		    	    //Read string from file and update key and frequency in ST
-		    	StdOut.println("ST Implemenation: Sequential Search");
+		    	StdOut.println("\nST Implemenation: Sequential Search");
+		    	
+		    	//Check Number of Unique Words
+	    		HashSet<String> set = new HashSet<String>();
+	    		
 		    		while(!inputFile.isEmpty()) { //While inputFile is not empty
 		    			String word = inputFile.readString();
+		    			readFromFile++;
+		    			//checks unique word in set and adds if not present
+		    			if(!set.contains(word)) {
+		    				set.add(word);
+		    			}
+		    			
 		    			if(word.length() < minlen) {continue;}
 		    			if(!WFssST.contains(word)) {WFssST.put(word, 1);}
 		    			else WFssST.put(word, WFssST.get(word) + 1);
@@ -136,7 +151,9 @@ public class WordPlay {
 		    		for (String word:WFssST.keys())
 		    			if(WFssST.get(word) > WFssST.get(max))
 		    				max = word;
-		    		StdOut.println("The max frequency of a word is: " + WFssST.get(max));
+		    		keysetSize = set.size()-1;
+		    		
+		    		StdOut.println("\nThe max frequency of a word is greater than min length: " + WFssST.get(max));
 		    		break;
 		    case 2: StdOut.println("ST Implemenation: Binary Search");
 					break;
@@ -152,24 +169,23 @@ public class WordPlay {
 	    // report information
 	        
 	     
-	        StdOut.println("\nTime elapsed: "+time);
-	        StdOut.println("Unique words greater than minlen: "+uniqueWords);
+	       
 	        // Report on (word, frequency) ST build
 			// create variables for this section and then uncomment
-			/*
+			
 	        StdOut.println("Number of words read from file:  " + readFromFile);
-	        StdOut.println("Number of words in file >= " + minlen + " = " + xx);
+	        StdOut.println("Number of words in file >= " + minlen + " = " + uniqueWords);
 	         
-	        StdOut.printf("Percentage of words >= min length:  %3.1f",xx);
+	        StdOut.printf("Percentage of words >= min length:  %3.1f", (uniqueWords/readFromFile)*100);
 	        StdOut.println("% ");
 	           
-	        StdOut.println("Number of unique words (#keys in ST):  " + xx); 
-	         
-	        StdOut.printf("Percentage of unique words:  %3.1f", xx); 
+	        StdOut.println("Number of unique words (#keys in ST):  " + keysetSize); 
+         
+	        StdOut.printf("Percentage of unique words:  %3.1f", (keysetSize/readFromFile)*100); 
 	        StdOut.println("% ");
 	        
-	        StdOut.println("Build ST Time = " + xx);
-			*/
+	        StdOut.println("Build ST Time = " + time);
+			
 	         
 	        
 	        // Print up to the first 10 items in the ST: word and frequency
