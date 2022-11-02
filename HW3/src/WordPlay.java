@@ -31,6 +31,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.ST;
 
 import java.util.HashSet;
 
@@ -55,9 +56,9 @@ public class WordPlay {
     	 * Choose one input file by removing the comment characters
     	 * *************************************************************************
     	 */
-    	In inputFile = new In("quickFox.txt"); 
+    	//In inputFile = new In("quickFox.txt"); 
     	//In inputFile = new In("mobydick.txt");
-		//In inputFile = new In("aesop.txt");
+		In inputFile = new In("aesop.txt");
     	//In inputFile = new In("dickens.txt"); 
 		 
 	
@@ -65,7 +66,7 @@ public class WordPlay {
     	// create a symbol table with key as string and value as integer 
 		// (word, length)  "WF" ST
     	
-    	//ST<String, Integer> WFST = new ST<String, Integer>();  mweath1
+    	ST<String, Integer> WFST = new ST<String, Integer>();  //mweath1
 		 
 		//#1
 		SequentialSearchST<String, Integer> WFssST = new SequentialSearchST<String, Integer>();
@@ -126,6 +127,7 @@ public class WordPlay {
 	     	 
 	    // Build the WF ST (You will need a switch statement )
 	     	switch(activeST) {
+	     	
 		    case 1: //ST Implementation: Sequential Search
 		    	    //Read string from file and update key and frequency in ST
 		    	StdOut.println("\nST Implemenation: Sequential Search");
@@ -133,28 +135,33 @@ public class WordPlay {
 		    	//Check Number of Unique Words
 	    		HashSet<String> set = new HashSet<String>();
 	    		
-		    		while(!inputFile.isEmpty()) { //While inputFile is not empty
+		    		while(!inputFile.isEmpty()) 
+		    		{ //While inputFile is not empty
 		    			String word = inputFile.readString();
 		    			readFromFile++;
+		    			//checks if word is blank
+		    			//if(word=="") {continue;}
 		    			//checks unique word in set and adds if not present
-		    			if(!set.contains(word)) {
-		    				set.add(word);
-		    			}
+		    			if(!set.contains(word)) {set.add(word);}//unique keys
 		    			
 		    			if(word.length() < minlen) {continue;}
 		    			if(!WFssST.contains(word)) {WFssST.put(word, 1);}
 		    			else WFssST.put(word, WFssST.get(word) + 1);
 		    			uniqueWords++;
-		    		}//Print a String with max frequency
+		    			
+		    		}
+		    		//Print a String with max frequency
 		    		String max = "";
 		    		WFssST.put(max,0);
 		    		for (String word:WFssST.keys())
-		    			if(WFssST.get(word) > WFssST.get(max))
-		    				max = word;
-		    		keysetSize = set.size()-1;
+		    			if(WFssST.get(word) > WFssST.get(max)) {
+		    				max = word;}
+		    		WFssST.delete("");
+		    		keysetSize = set.size()-1;//this line gets the number of unique words within hashSet
 		    		
-		    		StdOut.println("\nThe max frequency of a word is greater than min length: " + WFssST.get(max));
+		    		StdOut.println("\nThe max frequency of a word that's greater than min length(Word,Frequency): " + max+ " | "+ WFssST.get(max) );
 		    		break;
+		    		
 		    case 2: StdOut.println("ST Implemenation: Binary Search");
 					break;
 		    case 3: StdOut.println("ST Implemenation: BST");
@@ -191,8 +198,10 @@ public class WordPlay {
 	        // Print up to the first 10 items in the ST: word and frequency
 			// Add some text to the output to communicate what is being printed
 	        // Use the for each statement
-	         
-	        
+	        StdOut.println("The WFssST (Words over minlength:Frequency): ");
+	         for(String key : WFssST.keys()) { //have unusued symbol table to utilize keys with from above
+	        	 StdOut.print("| "+key + ": "+ WFssST.get(key)+" |");
+	         }
 	        
 	        /* 
 	         * Print min and max word and its associated frequency from the WF ST
@@ -209,18 +218,27 @@ public class WordPlay {
 			 * Just as above, there will be 4 ST structures
 			 */
 	        /****************************** */
+	         
+	         ST<Integer,String> FWST = new ST<Integer,String>(); //(Frequency, Word) ST
 				 
-	        //StdOut.println("Create (Frequency, Word) ST ");   REMEMBER TO UNCOMMENT
+	        StdOut.println("\n\nCreate (Frequency, Word) ST: .... \nThe output of the FW Symbol Table is: ");   //REMEMBER TO UNCOMMENT
 	         
 	    	
 	    	// Build the FW ST
-	    	
-	    	 
-	    	
+	    	switch(activeST) {
+	    		case 1: for(String key : WFssST.keys()) {
+	    			FWST.put(WFssST.get(key), key);
+	    		}
+	    		case 2:
+	    		case 3:
+	    		case 4:
+	    	}
 	    	// Print up to the first 10 items in the ST: frequency and word
 			// Add some text to the output to communicate what is being printed
 	        // Use the for each statement
-			
+			for(Integer i:FWST.keys()) {
+				StdOut.print("| "+i + ": "+ FWST.get(i) +" |");
+			}
 	    	 
 	        
 	        // Print min and max frequencies with associated word
