@@ -80,7 +80,7 @@ public class WordPlay {
 		// Choose one of the ST implementations to use
 		// Numbers indicated in ST declaration
 		// *********************************************
-		int activeST = 3;
+		int activeST = 4;
 
 		StdOut.println("activeST = " + activeST);
 		if (activeST < 1 || activeST > 4) {
@@ -279,7 +279,7 @@ public class WordPlay {
 		case 1:
 			StdOut.println("The SequentialSearchST (Words over minlen:Frequency): ");
 			for (String key : WFssST.keys()) { // have unusued symbol table to utilize keys with from above
-			StdOut.print("| " + key + ": " + WFssST.get(key) + " |");
+			StdOut.print("[ " + key + ": " + WFssST.get(key) + " ]");
 			if (i == 10) {
 				break;
 			} // only print up to 10 words==
@@ -289,7 +289,7 @@ public class WordPlay {
 		case 2:
 			StdOut.println("The BinarySearchST (Words over minlen:Frequency): ");
 			for (String key : WFbsST.keys()) { 
-				StdOut.print("| " + key + ": " + WFbsST.get(key) + " |");
+				StdOut.print("[ " + key + ": " + WFbsST.get(key) + " ]");
 				if (i == 10) {
 					break;
 				} // only print up to 10 words==
@@ -299,7 +299,7 @@ public class WordPlay {
 		case 3:
 			StdOut.println("The BST (Words over minlen:Frequency): ");
 			for (String key : WFbstST.keys()) {
-				StdOut.print("| " + key + ": " + WFbstST.get(key) + " |");
+				StdOut.print("[ " + key + ": " + WFbstST.get(key) + " ]");
 				if (i == 10) {
 					break;
 				} // only print up to 10 words==
@@ -309,7 +309,7 @@ public class WordPlay {
 		case 4:
 			StdOut.println("The RedBlackBST (Words over minlen:Frequency): ");
 			for (String key : WFrbST.keys()) {
-				StdOut.print("| " + key + ": " + WFrbST.get(key) + " |");
+				StdOut.print("[ " + key + ": " + WFrbST.get(key) + " ]");
 				if (i == 10) {
 					break;
 				} // only print up to 10 words==
@@ -406,7 +406,7 @@ public class WordPlay {
 		case 1:
 			j = 1;
 			for (Integer a : FWST.keys()) {
-				StdOut.print("| " + a + ": " + FWST.get(a) + " |");
+				StdOut.print("[ " + a + ": " + FWST.get(a) + " ]");
 				if (j == 10) {
 					break;
 				}
@@ -416,7 +416,7 @@ public class WordPlay {
 		case 2:
 			j = 1;
 			for (Integer a : FWST2.keys()) {
-				StdOut.print("| " + a + ": " + FWST2.get(a) + " |");
+				StdOut.print("[ " + a + ": " + FWST2.get(a) + " ]");
 				if (j == 10) {
 					break;
 				}
@@ -426,7 +426,7 @@ public class WordPlay {
 		case 3:
 			j = 1;
 			for (Integer a : FWST3.keys()) {
-				StdOut.print("| " + a + ": " + FWST3.get(a) + " |");
+				StdOut.print("[ " + a + ": " + FWST3.get(a) + " ]");
 				if (j == 10) {
 					break;
 				}
@@ -436,7 +436,7 @@ public class WordPlay {
 		case 4:
 			j = 1;
 			for (Integer a : FWST4.keys()) {
-				StdOut.print("| " + a + ": " + FWST4.get(a) + " |");
+				StdOut.print("[ " + a + ": " + FWST4.get(a) + " ]");
 				if (j == 10) {
 					break;
 				}
@@ -461,21 +461,21 @@ public class WordPlay {
 			maxW = WFbsST.max();
 			StdOut.println("The min and max frequencies for BinarySearchST : ");
 			StdOut.print("[Min| "+ minW +":" + WFbsST.get(minW)+"]");
-			StdOut.print(" [Max| "+ maxW +":" + WFbsST.get(maxW)+"]");
+			StdOut.print("  [Max| "+ maxW +":" + WFbsST.get(maxW)+"]");
 			break;
 		case 3:
 			minW = WFbstST.min();
 			maxW = WFbstST.max();
 			StdOut.println("The min and max frequencies for BST : ");
 			StdOut.print("[Min| "+ minW +":" + WFbstST.get(minW)+"]");
-			StdOut.print(" [Max| "+ maxW +":" + WFbstST.get(maxW)+"]");
+			StdOut.print("  [Max| "+ maxW +":" + WFbstST.get(maxW)+"]");
 			break;
 		case 4:
-			minW = WFbstST.min();
-			maxW = WFbstST.max();
+			minW = WFrbST.min();
+			maxW = WFrbST.max();
 			StdOut.println("The min and max frequencies for RedBlackBST : ");
 			StdOut.print("[Min| "+ minW +":" + WFrbST.get(minW)+"]");
-			StdOut.print(" [Max| "+ maxW +":" + WFrbST.get(maxW)+"]");
+			StdOut.print("  [Max| "+ maxW +":" + WFrbST.get(maxW)+"]");
 			break;
 		}
 
