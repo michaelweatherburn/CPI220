@@ -58,9 +58,9 @@ public class WordPlay {
 		 * *************************************************************************
 		 */
 		//In inputFile = new In("quickFox.txt");
-		// In inputFile = new In("mobydick.txt");
-		// In inputFile = new In("aesop.txt");
-		 In inputFile = new In("dickens.txt");
+		//In inputFile = new In("mobydick.txt");
+		In inputFile = new In("aesop.txt");
+		//In inputFile = new In("dickens.txt");
 
 		// create a symbol table with key as string and value as integer
 		// (word, length) "WF" ST
@@ -80,7 +80,7 @@ public class WordPlay {
 		// Choose one of the ST implementations to use
 		// Numbers indicated in ST declaration
 		// *********************************************
-		int activeST = 4;
+		int activeST = 3;
 
 		StdOut.println("activeST = " + activeST);
 		if (activeST < 1 || activeST > 4) {
@@ -159,18 +159,6 @@ public class WordPlay {
 					WFssST.put(word, WFssST.get(word) + 1);
 				   
 			}
-			// Print a String with max frequency
-//			String max = "";
-//			WFssST.put(max, 0);
-//			for (String word : WFssST.keys())
-//				if (WFssST.get(word) > WFssST.get(max)) {
-//					max = word;
-//				}
-//			WFssST.delete("");
-//			keysetSize = set.size() - 1;// this line gets the number of unique words within hashSet
-//
-//			StdOut.println("\nThe max frequency of a word that's greater than min length(Word,Frequency): " + max
-//					+ " | " + WFssST.get(max));
 			break;
 
 		case 2:
@@ -178,8 +166,7 @@ public class WordPlay {
 			while (!inputFile.isEmpty()) { // While inputFile is not empty
 				String word = inputFile.readString();
 				readFromFile++;
-				// checks if word is blank
-				// if(word=="") {continue;}
+				
 				// checks unique word in set and adds if not present
 				if (word.length() < minlen) {
 					continue;
@@ -197,18 +184,6 @@ public class WordPlay {
 					WFbsST.put(word, WFbsST.get(word) + 1);
 
 			}
-			// Print a String with max frequency
-//			String max2 = "";
-//			WFbsST.put(max2, 0);
-//			for (String word : WFbsST.keys())
-//				if (WFbsST.get(word) > WFbsST.get(max2)) {
-//					max2 = word;
-//				}
-//			WFbsST.delete("");
-			//keysetSize = set.size() - 1;// this line gets the number of unique words within hashSet
-
-//			StdOut.println("\nThe max frequency of a word that's greater than min length(Word,Frequency): " + max2
-//					+ " | " + WFbsST.get(max2));
 			
 			break;
 		case 3:
@@ -299,15 +274,55 @@ public class WordPlay {
 		// Print up to the first 10 items in the ST: word and frequency
 		// Add some text to the output to communicate what is being printed
 		// Use the for each statement
-		StdOut.println("The WFbsST (Words over minlength:Frequency): ");
 		int i = 1;
-		for (String key : WFrbST.keys()) { // have unusued symbol table to utilize keys with from above
-			StdOut.print("| " + key + ": " + WFrbST.get(key) + " |");
+		switch(activeST) {
+		case 1:
+			StdOut.println("The SequentialSearchST (Words over minlen:Frequency): ");
+			for (String key : WFssST.keys()) { // have unusued symbol table to utilize keys with from above
+			StdOut.print("| " + key + ": " + WFssST.get(key) + " |");
 			if (i == 10) {
 				break;
 			} // only print up to 10 words==
 			i++;
 		}
+		break;
+		case 2:
+			StdOut.println("The BinarySearchST (Words over minlen:Frequency): ");
+			for (String key : WFbsST.keys()) { 
+				StdOut.print("| " + key + ": " + WFbsST.get(key) + " |");
+				if (i == 10) {
+					break;
+				} // only print up to 10 words==
+				i++;
+			}
+			break;
+		case 3:
+			StdOut.println("The BST (Words over minlen:Frequency): ");
+			for (String key : WFbstST.keys()) {
+				StdOut.print("| " + key + ": " + WFbstST.get(key) + " |");
+				if (i == 10) {
+					break;
+				} // only print up to 10 words==
+				i++;
+			}
+			break;
+		case 4:
+			StdOut.println("The RedBlackBST (Words over minlen:Frequency): ");
+			for (String key : WFrbST.keys()) {
+				StdOut.print("| " + key + ": " + WFrbST.get(key) + " |");
+				if (i == 10) {
+					break;
+				} // only print up to 10 words==
+				i++;
+			}
+			break;
+		}
+		
+		
+		
+		
+		
+		
 
 		
 		
@@ -324,6 +339,7 @@ public class WordPlay {
 		 * WF ST Call it "FW" ST Just as above, there will be 4 ST structures
 		 */
 		/****************************** */
+		
 
 		SequentialSearchST<Integer, String> FWST = new SequentialSearchST<Integer, String>(); // (Frequency, Word) ST
 		BinarySearchST<Integer, String> FWST2 = new BinarySearchST<Integer, String>(); // (Frequency, Word) ST
@@ -332,6 +348,7 @@ public class WordPlay {
 
 		StdOut.println("\n\nCreate (Frequency, Word) ST: .... \nThe output of the FW Symbol Table is: "); // REMEMBER TO
 																											// UNCOMMENT
+		
 
 		// Build the FW ST
 
@@ -340,33 +357,42 @@ public class WordPlay {
 		int j;// incrementor for up to 10 items
 		switch (activeST) {
 		case 1:
-			// j=1;
+			 j=1;
 			for (String key : WFssST.keys()) {
 				// StdOut.print("| "+WFssST.get(key) + ": "+ key+" |");
 				FWST.put(WFssST.get(key), key);
-				// if(j==10) {break;}
-				// j++;//only prints up to 10 words
+				 if(j==10) {break;}
+				 j++;//only prints up to 10 words
 //	    				if(!FWST.get(null)) {FWST.put(WFssST.get(key), key);}
 //	        			else WFssST.put(key, WFbsST.get(key)+1);
 
 			}
 			break;
 		case 2:
+			j=1;
 			for (String key : WFbsST.keys()) {
 				// StdOut.print("| "+WFssST.get(key) + ": "+ key+" |");
 				FWST2.put(WFbsST.get(key), key);
+				if(j==10) {break;}
+				 j++;//only prints up to 10 words
 			}
 			break;
 		case 3:
+			j=1;
 			for (String key : WFbstST.keys()) {
 			// StdOut.print("| "+WFssST.get(key) + ": "+ key+" |");
 			FWST3.put(WFbstST.get(key), key);
+			if(j==10) {break;}
+			 j++;//only prints up to 10 words
 		}
 			break;
 		case 4:
+			j=1;
 			for (String key : WFrbST.keys()) {
 				// StdOut.print("| "+WFssST.get(key) + ": "+ key+" |");
 				FWST4.put(WFrbST.get(key), key);
+				if(j==10) {break;}
+				 j++;//only prints up to 10 words
 			}
 			break;
 		}
@@ -374,18 +400,84 @@ public class WordPlay {
 		// Add some text to the output to communicate what is being printed
 
 		// Use the for each statement
-		j = 1;
-		for (Integer a : FWST4.keys()) {
-			StdOut.print("| " + a + ": " + FWST4.get(a) + " |");
-			if (j == 10) {
-				break;
+		
+		
+		switch(activeST) {
+		case 1:
+			j = 1;
+			for (Integer a : FWST.keys()) {
+				StdOut.print("| " + a + ": " + FWST.get(a) + " |");
+				if (j == 10) {
+					break;
+				}
+				j++;
 			}
-			j++;// only prints up to 10 words
+			break;
+		case 2:
+			j = 1;
+			for (Integer a : FWST2.keys()) {
+				StdOut.print("| " + a + ": " + FWST2.get(a) + " |");
+				if (j == 10) {
+					break;
+				}
+				j++;
+			}
+			break;
+		case 3:
+			j = 1;
+			for (Integer a : FWST3.keys()) {
+				StdOut.print("| " + a + ": " + FWST3.get(a) + " |");
+				if (j == 10) {
+					break;
+				}
+				j++;
+			}
+			break;
+		case 4:
+			j = 1;
+			for (Integer a : FWST4.keys()) {
+				StdOut.print("| " + a + ": " + FWST4.get(a) + " |");
+				if (j == 10) {
+					break;
+				}
+				j++;
+			}
+			break;
 		}
+		
 
 		// Print min and max frequencies with associated word
 		// Only do for ST classes with ordered operations
-		//StdOut.println("The min and max frequencies with associated word")
+		
+		String maxW;
+		String minW;
+		StdOut.println("\n\nThe min and max frequencies with associated word : ");
+		switch(activeST) {
+		case 1: 
+			StdOut.println("No min and max for Sequential Search");
+			break;
+		case 2:
+			minW = WFbsST.min();
+			maxW = WFbsST.max();
+			StdOut.println("The min and max frequencies for BinarySearchST : ");
+			StdOut.print("[Min| "+ minW +":" + WFbsST.get(minW)+"]");
+			StdOut.print(" [Max| "+ maxW +":" + WFbsST.get(maxW)+"]");
+			break;
+		case 3:
+			minW = WFbstST.min();
+			maxW = WFbstST.max();
+			StdOut.println("The min and max frequencies for BST : ");
+			StdOut.print("[Min| "+ minW +":" + WFbstST.get(minW)+"]");
+			StdOut.print(" [Max| "+ maxW +":" + WFbstST.get(maxW)+"]");
+			break;
+		case 4:
+			minW = WFbstST.min();
+			maxW = WFbstST.max();
+			StdOut.println("The min and max frequencies for RedBlackBST : ");
+			StdOut.print("[Min| "+ minW +":" + WFrbST.get(minW)+"]");
+			StdOut.print(" [Max| "+ maxW +":" + WFrbST.get(maxW)+"]");
+			break;
+		}
 
 	} // end main
 
