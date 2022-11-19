@@ -27,6 +27,7 @@
  *     and drawing delay. These variables are helpful for testing (by removing randomness).
  *  
  ******************************************************************************/
+import edu.princeton.cs.algs4.DepthFirstPaths;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdOut;
@@ -268,7 +269,7 @@ public class Maze {
     	int n = 4;
     	int startx = 1;
         int starty = 1;
-        int solnx = n;
+        int solnx = n;  
         int solny = n;
         StdOut.println("Solve maze for start = x= " +startx +" y= " +starty);
         StdOut.println("            solution = x= " +solnx +" y= " +solny);        
@@ -283,6 +284,10 @@ public class Maze {
         
         // leave display up
         StdDraw.pause(1000);
+        
+        
+        
+      
     }
 
 }
