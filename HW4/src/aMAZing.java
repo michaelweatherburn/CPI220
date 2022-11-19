@@ -1,5 +1,5 @@
 /*
- * NAME: Michael Weatherburn
+ * NAME: Michael Weatherburn 11/19/22
  * 
  * aMAZing! This is a client for the Maze class.
  * This client generates an n-by-n maze, solves it with three methods, and draws the maze and the solutions.
